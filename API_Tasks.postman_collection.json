@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "9ad96bc2-27a1-4d61-87e7-1cfa3a4bd008",
+		"name": "API_Tasks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "Get All Todo Entries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "08d596d9-808b-462f-8854-44f0d3238752",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.withBody;\r",
+									"});\r",
+									"pm.test(\"Status code name has OK as string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{projURL}}/index.php/todo",
+							"host": [
+								"{{projURL}}"
+							],
+							"path": [
+								"index.php",
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Entries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a542b3b7-0edd-4d62-8fa3-c87958273a7d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK as string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{projURL}}/index.php/",
+							"host": [
+								"{{projURL}}"
+							],
+							"path": [
+								"index.php",
+								""
+							]
+						},
+						"description": "https://demo.fusio-project.org/index.php/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get entry per ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "04c520d1-c221-4903-a757-12ee35067eb9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code name has OK as string\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"pm.test(\"response must be valid and have a body\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{projURL}}/index.php/todo/?todo_id=2",
+							"host": [
+								"{{projURL}}"
+							],
+							"path": [
+								"index.php",
+								"todo",
+								""
+							],
+							"query": [
+								{
+									"key": "todo_id",
+									"value": "2"
+								}
+							]
+						},
+						"description": "https://demo.fusio-project.org/index.php/todo/:todo_id"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "Create new Entry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8dfea52-c5d7-49a6-8102-7938f1a8b129",
+								"exec": [
+									"pm.test(\"Content-Type is present\", function () { pm.response.to.have.header(\"Content-Type\");});\r",
+									"pm.test(\"Response time is less than 200ms\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									"pm.test(\"Response property matches environment variable\", function () {\r",
+									"  pm.expect(pm.response.json().name).to.eql(pm.environment.get(\"name\"));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"1\",\n    \"status\": \"1\",\n    \"title\": \"Task 1\",\n    \"insertDate\": \"2020-04-10 15:58:27\"\n}"
+						},
+						"url": {
+							"raw": "{{projURL}}/index.php/todo",
+							"host": [
+								"{{projURL}}"
+							],
+							"path": [
+								"index.php",
+								"todo"
+							]
+						},
+						"description": "https://demo.fusio-project.org/index.php/todo"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "Delete a todo per ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "028305b8-61a6-484a-85a7-43dffcec35e3",
+								"exec": [
+									"pm.test(\"Not failing\"), function() {\r",
+									"    pm.expect(true).to.eql(false);\r",
+									"};\r",
+									"tests[\"Response time is acceptable\"] = _.inRange(responseTime, 100, 1001);\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{projURL}}/index.php/todo?todo_id=2",
+							"host": [
+								"{{projURL}}"
+							],
+							"path": [
+								"index.php",
+								"todo"
+							],
+							"query": [
+								{
+									"key": "todo_id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
